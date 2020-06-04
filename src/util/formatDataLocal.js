@@ -21,7 +21,7 @@ class FormatDataLocal {
 
   async trataOrder({ order }) {
     const { created_at, start_date, end_date } = order.dataValues;
-    //formata data
+    // formata data
     let date_start_date;
     let date_end_date;
 
@@ -47,7 +47,7 @@ class FormatDataLocal {
     const results = orders.map(async order_obj => {
       const { created_at, start_date, end_date } = order_obj.dataValues;
 
-      //formata data
+      // formata data
       let date_start_date;
       let date_end_date;
 
