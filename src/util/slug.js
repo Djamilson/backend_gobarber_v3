@@ -1,9 +1,9 @@
 // https://gist.github.com/codeguy/6684588
 
-module.exports = (str) => {
-  str = String(str).toString()
-  str = str.replace(/^\s+|\s+$/g, '') // trim
-  str = str.toLowerCase()
+export default str => {
+  str = String(str).toString();
+  str = str.replace(/^\s+|\s+$/g, ''); // trim
+  str = str.toLowerCase();
 
   // remove accents, swap ñ for n, etc
   const swaps = {
@@ -77,7 +77,7 @@ module.exports = (str) => {
       'अ',
       'ا',
       'ａ',
-      'ä'
+      'ä',
     ],
     b: ['б', 'β', 'ب', 'ဗ', 'ბ', 'ｂ'],
     c: ['ç', 'ć', 'č', 'ĉ', 'ċ', 'ｃ'],
@@ -99,7 +99,7 @@ module.exports = (str) => {
       'ဍ',
       'ဒ',
       'დ',
-      'ｄ'
+      'ｄ',
     ],
     e: [
       'é',
@@ -141,7 +141,7 @@ module.exports = (str) => {
       'ए',
       'إ',
       'ئ',
-      'ｅ'
+      'ｅ',
     ],
     f: ['ф', 'φ', 'ف', 'ƒ', 'ფ', 'ｆ'],
     g: ['ĝ', 'ğ', 'ġ', 'ģ', 'г', 'ґ', 'γ', 'ဂ', 'გ', 'گ', 'ｇ'],
@@ -189,7 +189,7 @@ module.exports = (str) => {
       'ი',
       'इ',
       'ی',
-      'ｉ'
+      'ｉ',
     ],
     j: ['ĵ', 'ј', 'Ј', 'ჯ', 'ج', 'ｊ'],
     k: ['ķ', 'ĸ', 'к', 'κ', 'Ķ', 'ق', 'ك', 'က', 'კ', 'ქ', 'ک', 'ｋ'],
@@ -237,7 +237,7 @@ module.exports = (str) => {
       'ო',
       'ओ',
       'ｏ',
-      'ö'
+      'ö',
     ],
     p: ['п', 'π', 'ပ', 'პ', 'پ', 'ｐ'],
     q: ['ყ', 'ｑ'],
@@ -276,7 +276,7 @@ module.exports = (str) => {
       'उ',
       'ｕ',
       'ў',
-      'ü'
+      'ü',
     ],
     v: ['в', 'ვ', 'ϐ', 'ｖ'],
     w: ['ŵ', 'ω', 'ώ', 'ဝ', 'ွ', 'ｗ'],
@@ -297,7 +297,7 @@ module.exports = (str) => {
       'ΰ',
       'ي',
       'ယ',
-      'ｙ'
+      'ｙ',
     ],
     z: ['ź', 'ž', 'ż', 'з', 'ζ', 'ز', 'ဇ', 'ზ', 'ｚ'],
     aa: ['ع', 'आ', 'آ'],
@@ -377,7 +377,7 @@ module.exports = (str) => {
       'Ǻ',
       'Ǎ',
       'Ａ',
-      'Ä'
+      'Ä',
     ],
     B: ['Б', 'Β', 'ब', 'Ｂ'],
     C: ['Ç', 'Ć', 'Č', 'Ĉ', 'Ċ', 'Ｃ'],
@@ -415,7 +415,7 @@ module.exports = (str) => {
       'Э',
       'Є',
       'Ə',
-      'Ｅ'
+      'Ｅ',
     ],
     F: ['Ф', 'Φ', 'Ｆ'],
     G: ['Ğ', 'Ġ', 'Ģ', 'Г', 'Ґ', 'Γ', 'Ｇ'],
@@ -451,7 +451,7 @@ module.exports = (str) => {
       'Ї',
       'Ǐ',
       'ϒ',
-      'Ｉ'
+      'Ｉ',
     ],
     J: ['Ｊ'],
     K: ['К', 'Κ', 'Ｋ'],
@@ -496,7 +496,7 @@ module.exports = (str) => {
       'Ǒ',
       'Ǿ',
       'Ｏ',
-      'Ö'
+      'Ö',
     ],
     P: ['П', 'Π', 'Ｐ'],
     Q: ['Ｑ'],
@@ -529,7 +529,7 @@ module.exports = (str) => {
       'Ǜ',
       'Ｕ',
       'Ў',
-      'Ü'
+      'Ü',
     ],
     V: ['В', 'Ｖ'],
     W: ['Ω', 'Ώ', 'Ŵ', 'Ｗ'],
@@ -550,7 +550,7 @@ module.exports = (str) => {
       'Υ',
       'Ϋ',
       'Ŷ',
-      'Ｙ'
+      'Ｙ',
     ],
     Z: ['Ź', 'Ž', 'Ż', 'З', 'Ζ', 'Ｚ'],
     AE: ['Æ', 'Ǽ'],
@@ -573,18 +573,18 @@ module.exports = (str) => {
     Ts: ['Ц'],
     Ya: ['Я'],
     Yu: ['Ю'],
-    Zh: ['Ж']
-  }
+    Zh: ['Ж'],
+  };
 
   Object.keys(swaps).forEach(swap => {
     swaps[swap].forEach(s => {
-      str = str.replace(new RegExp(s, 'g'), swap)
-    })
-  })
+      str = str.replace(new RegExp(s, 'g'), swap);
+    });
+  });
   return str
     .replace(/[^a-z0-9 -]/g, '') // remove invalid chars
     .replace(/\s+/g, '-') // collapse whitespace and replace by -
     .replace(/-+/g, '-') // collapse dashes
     .replace(/^-+/, '') // trim - from start of text
-    .replace(/-+$/, '')
-}
+    .replace(/-+$/, '');
+};
