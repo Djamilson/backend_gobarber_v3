@@ -24,6 +24,10 @@ module.exports = {
     'prettier/prettier': 'error',
     'class-methods-use-this': 'off',
     '@typescript-eslint/camelcase': 'off',
+    '@typescript-eslint/interface-name-prefix': [
+      'error',
+      { prefixWithI: 'always' },
+    ],
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
