@@ -20,7 +20,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
     return findAppointment;
   }
 
-  public async crete({
+  public async create({
     provider_id,
     date,
   }: ICreateAppointmentDTO): Promise<Appointment> {
