@@ -1,12 +1,11 @@
 import aws from 'aws-sdk';
-
+import crypto from 'crypto';
+import multer from 'multer';
 import multerS3 from 'multer-sharp-s3';
 import path, { basename, extname } from 'path';
 
-import crypto from 'crypto';
-import multer from 'multer';
 // import slug from '../util/slug';
-const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp', 'uploads'),
+const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp', 'uploads');
 const storageTypes = {
   local: multer.diskStorage({
     destination: tmpFolder,
@@ -63,8 +62,8 @@ const getStorage = () => {
 };
 
 export default {
-  directory: tmpFolder,
-
+  tmpFolder,
+  uploadsFolder: path.resolve(tmpFolder, 'uploads'),
   // storage: storageTypes['s3'],
   storage: storageTypes.local,
   // storage: storageTypes[process.env.STORAGE_TYPE_LOCAL],
