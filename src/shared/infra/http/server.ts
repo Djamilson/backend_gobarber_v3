@@ -36,7 +36,6 @@ app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
   });
 });
 
-app.get('/', (req, res) => res.json({ msg: 'hello' }));
 app.listen(3333, () => {
   console.log('Inicializou o server!');
 });
