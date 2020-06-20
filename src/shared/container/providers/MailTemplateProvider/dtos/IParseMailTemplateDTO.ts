@@ -1,8 +1,8 @@
-interface ITemplateVariables{
-  [key: string] : string | number;
+interface ITemplateVariables {
+  [key: string]: string | number;
 }
 
-export default interface IParseMailTemplateDTO{
+export default interface IParseMailTemplateDTO {
   template: string;
   variables: ITemplateVariables;
 }

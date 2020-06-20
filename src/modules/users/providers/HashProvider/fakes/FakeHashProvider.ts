@@ -1,5 +1,3 @@
-import { hash, compare } from 'bcryptjs';
-
 import IHashProvider from '../models/IHashProvider';
 
 class FakeHashProvider implements IHashProvider {

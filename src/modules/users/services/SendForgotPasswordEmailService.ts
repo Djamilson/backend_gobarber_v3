@@ -1,13 +1,13 @@
 import { injectable, inject } from 'tsyringe';
 
+import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
 import AppError from '@shared/errors/AppError';
 
-//import User from '../infra/typeorm/entities/User';
-import IUserTokensRepository from '../repositories/IUserTokensRepository'
-
+// import User from '../infra/typeorm/entities/User';
+// import usersRouter from '../infra/http/routes/users.routes';
 import IUsersRepository from '../repositories/IUsersRepository';
-import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider'
-import usersRouter from '../infra/http/routes/users.routes';
+import IUserTokensRepository from '../repositories/IUserTokensRepository';
+
 interface IRequest {
   email: string;
 }
@@ -23,33 +23,29 @@ class SendForgotPasswordEmailService {
 
     @inject('UserTokensRepository')
     private userTokensRepository: IUserTokensRepository,
-
   ) {}
 
-  public async execute({email}: IRequest): Promise<void> {
+  public async execute({ email }: IRequest): Promise<void> {
     const userExists = await this.usersRepository.findByEmail(email);
-    if (!userExists){
+    if (!userExists) {
       throw new AppError('User does not exists.');
     }
-    const {token } = await this.userTokensRepository.generate(userExists.id);
+    const { token } = await this.userTokensRepository.generate(userExists.id);
 
-    await this.mailProvider.sendMail(
-      {
-        to:{
-          name: usersRouter.name,
-          email: usersRouter.email,
+    await this.mailProvider.sendMail({
+      to: {
+        name: userExists.name,
+        email: userExists.email,
+      },
+      subject: '[GoBarber] Recuperação de senha',
+      templateData: {
+        template: 'Óla, {{name}}: {{token}}',
+        variables: {
+          name: userExists.name,
+          token,
         },
-        subject: '[GoBarber] Recuperação de senha',
-        templateData:{
-          template: 'Óla, {{name}}: {{token}}',
-          variables:{
-            name: usersRouter.name,
-            token,
-          }
-
-        }
-      })
-
+      },
+    });
   }
 }
 
