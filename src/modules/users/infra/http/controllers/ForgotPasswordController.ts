@@ -8,6 +8,7 @@ export default class ForgotPasswordController {
   public async create(req: Request, res: Response): Promise<Response> {
     try {
       const { email } = req.body;
+      
       const sendForgotPasswordEmail = container.resolve(
         SendForgotPasswordEmailService,
       );
