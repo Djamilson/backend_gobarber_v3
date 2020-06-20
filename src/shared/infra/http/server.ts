@@ -18,7 +18,7 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use('/files', express.static(uploadConfig.directory));
+app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(routes);
 // tratar os erros
 app.use((err: Error, req: Request, res: Response, _: NextFunction) => {

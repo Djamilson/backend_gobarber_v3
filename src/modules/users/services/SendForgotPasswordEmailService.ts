@@ -7,6 +7,7 @@ import IUserTokensRepository from '../repositories/IUserTokensRepository'
 
 import IUsersRepository from '../repositories/IUsersRepository';
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider'
+import usersRouter from '../infra/http/routes/users.routes';
 interface IRequest {
   email: string;
 }
@@ -30,9 +31,25 @@ class SendForgotPasswordEmailService {
     if (!userExists){
       throw new AppError('User does not exists.');
     }
-    await this.userTokensRepository.generate(userExists.id);
+    const {token } = await this.userTokensRepository.generate(userExists.id);
 
-    this.mailProvider.sendMail(email, 'Pedido de recuperação de senha recebido')
+    await this.mailProvider.sendMail(
+      {
+        to:{
+          name: usersRouter.name,
+          email: usersRouter.email,
+        },
+        subject: '[GoBarber] Recuperação de senha',
+        templateData:{
+          template: 'Óla, {{name}}: {{token}}',
+          variables:{
+            name: usersRouter.name,
+            token,
+          }
+
+        }
+      })
+
   }
 }
 
