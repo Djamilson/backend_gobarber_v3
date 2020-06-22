@@ -5,7 +5,7 @@
   "username": "djamilson",
   "password": "35c9bc2d86cd68ca5b68a1330ab31b49",
   "database": "gostack",
-  "entities": ["./src/modeles/**/infra/typeorm/entities/*.ts"],
+  "entities": ["./src/modules/**/infra/typeorm/entities/*.ts"],
   "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
   "cli": {
     "migrationsDir": "./src/shared/infra/typeorm/migrations"
