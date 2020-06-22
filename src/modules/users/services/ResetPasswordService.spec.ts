@@ -10,7 +10,7 @@ let fakeUserTokensRepository: FakeUserTokensRepository;
 let fakeHashProvider: FakeHashProvider;
 let resetPassword: ResetPasswordService;
 
-describe('ResetPassword', () => {
+describe('ResetPasswordEmailService', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeUserTokensRepository = new FakeUserTokensRepository();
@@ -27,7 +27,7 @@ describe('ResetPassword', () => {
     const user = await fakeUsersRepository.create({
       name: 'Djamisl ioo',
       email: 'djoo@bol.com.br',
-      password: '123447',
+      password: '123456',
     });
 
     const { token } = await fakeUserTokensRepository.generate(user.id);
@@ -35,13 +35,13 @@ describe('ResetPassword', () => {
 
     await resetPassword.execute({
       token,
-      password: '123448',
+      password: '123465',
     });
 
-    const updatedUser = await fakeUsersRepository.findByEmail(user.id);
+    const updatedUser = await fakeUsersRepository.findById(user.id);
 
-    expect(generateHash).toHaveBeenCalledWith('123448');
-    expect(updatedUser?.password).toBe('123448');
+    expect(generateHash).toHaveBeenCalledWith('123465');
+    expect(updatedUser?.password).toBe('123465');
   });
 
   it('should be not able to reset the password with non-existing token', async () => {

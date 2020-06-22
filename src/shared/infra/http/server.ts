@@ -3,8 +3,8 @@ import 'express-async-errors';
 import cors from 'cors';
 import express, { Request, Response, NextFunction } from 'express';
 
-import '@shared/infra/typeorm';
 import '@shared/container';
+import '@shared/infra/typeorm';
 
 import uploadConfig from '@config/upload';
 
