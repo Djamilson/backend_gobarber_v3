@@ -2,4 +2,6 @@ import './StorageProvider';
 
 import './MailTemplateProvider';
 
-import './MailProvider';
+// erro aqui
+//import './MailProvider';
+// ao inseria a depencia

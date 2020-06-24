@@ -1,6 +1,7 @@
 import nodemailer, { Transporter } from 'nodemailer';
 import { inject, injectable } from 'tsyringe';
 
+
 import IMailTemplateProvider from '@shared/container/providers/MailTemplateProvider/models/IMailTemplateProvider';
 
 import ISendMailDTO from '../dtos/ISendMailDTO';
@@ -11,8 +12,8 @@ export default class EtherealMailProvider implements IMailProvider {
   private client: Transporter;
 
   constructor(
-  //  @inject('MailTemplateProvider')
-   // private mailtemplateProvider: IMailTemplateProvider,
+    @inject('MailTemplateProvider')
+    private mailtemplateProvider: IMailTemplateProvider,
   ) {
     nodemailer.createTestAccount().then(account => {
       const transporter = nodemailer.createTransport({

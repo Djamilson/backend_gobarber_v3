@@ -15,11 +15,3 @@ container.registerInstance<IMailProvider>(
   'MailProvider',
   providers[mailConfig.driver],
 );
-
-/*
-container.registerInstance<IMailProvider>(
-  'MailProvider',
-  mailConfig.driver === 'ethereal'
-    ? container.resolve(EtherealMailProvider)
-    : container.resolve(SESMailProvider),
-); */

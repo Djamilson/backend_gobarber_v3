@@ -10,7 +10,7 @@ import ISendMailDTO from '../dtos/ISendMailDTO';
 import IMailProvider from '../models/IMailProvider';
 
 // configure AWS SDK
- aws.config.update({
+aws.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: process.env.AWS_DEFAULT_REGION,
@@ -21,8 +21,8 @@ export default class SESMailProvider implements IMailProvider {
   private client: Transporter;
 
   constructor(
-    //@inject('MailTemplateProvider')
-    //private mailtemplateProvider: IMailTemplateProvider,
+    @inject('MailTemplateProvider')
+    private mailtemplateProvider: IMailTemplateProvider,
   ) {
     this.client = nodemailer.createTransport({
       SES: new aws.SES({
