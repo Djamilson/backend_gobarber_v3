@@ -8,6 +8,8 @@ export default class ForgotPasswordController {
     try {
       const { email } = req.body;
 
+      console.log('email::', email);
+
       const sendForgotPasswordEmail = container.resolve(
         SendForgotPasswordEmailService,
       );

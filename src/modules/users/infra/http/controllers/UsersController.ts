@@ -1,3 +1,4 @@
+import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -11,9 +12,7 @@ export default class UserController {
 
       const user = await createUser.execute({ name, email, password });
 
-      delete user.password;
-
-      return res.json(user);
+      return res.json(classToClass(user));
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
