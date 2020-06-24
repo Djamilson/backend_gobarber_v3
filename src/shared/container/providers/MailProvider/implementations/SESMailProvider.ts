@@ -9,19 +9,26 @@ import IMailTemplateProvider from '@shared/container/providers/MailTemplateProvi
 import ISendMailDTO from '../dtos/ISendMailDTO';
 import IMailProvider from '../models/IMailProvider';
 
+// configure AWS SDK
+ aws.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_DEFAULT_REGION,
+});
+
 @injectable()
 export default class SESMailProvider implements IMailProvider {
   private client: Transporter;
 
   constructor(
-    @inject('MailTemplateProvider')
-    private mailtemplateProvider: IMailTemplateProvider,
+    //@inject('MailTemplateProvider')
+    //private mailtemplateProvider: IMailTemplateProvider,
   ) {
     this.client = nodemailer.createTransport({
       SES: new aws.SES({
         apiVersion: '2010-12-01',
-        region: 'us-east-1',
       }),
+      sendingRate: 1, // max 1 messages/second
     });
   }
 
@@ -32,19 +39,29 @@ export default class SESMailProvider implements IMailProvider {
     templateData,
   }: ISendMailDTO): Promise<void> {
     console.log('Estou:');
-    const { name, email } = mailConfig.default.from;
-    console.log('Estou:', name, email);
-    await this.client.sendMail({
-      from: {
-        name: from?.name || name,
-        address: from?.email || email,
+    console.log('Estou:', mailConfig);
+    console.log('Estou:', mailConfig.driver);
+
+    const { name, email } = mailConfig.defaults.from;
+
+    // send some mail
+    await this.client.sendMail(
+      {
+        from: {
+          name: from?.name || name,
+          address: from?.email || email,
+        },
+        to: {
+          name: to.name,
+          address: to.email,
+        },
+        subject,
+        html: await this.mailtemplateProvider.parse(templateData),
       },
-      to: {
-        name: to.name,
-        address: to.email,
+      (err, info) => {
+        console.log('===>> error', err);
+        console.log('===>>Info:: ', info);
       },
-      subject,
-      html: await this.mailtemplateProvider.parse(templateData),
-    });
+    );
   }
 }

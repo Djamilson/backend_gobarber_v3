@@ -1,13 +1,30 @@
 import aws from 'aws-sdk';
 import crypto from 'crypto';
-import multer from 'multer';
+import multer, { StorageEngine } from 'multer';
 import multerS3 from 'multer-sharp-s3';
 import path, { basename, extname } from 'path';
 
 // import slug from '../util/slug';
 const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp', 'uploads');
+
+interface IUploadConfig {
+  driver: 's3' | 'disk';
+  tmpFolder: string;
+  multer: {
+    storage: StorageEngine;
+  };
+
+  uploadsFolder: string;
+  config: {
+    disk: {};
+    aws: {
+      bucket: string;
+    };
+  };
+}
+
 const storageTypes = {
-  local: multer.diskStorage({
+  disk: multer.diskStorage({
     destination: tmpFolder,
     filename: (req, file, cb) => {
       const fileHash = crypto.randomBytes(10).toString('HEX');
@@ -16,6 +33,7 @@ const storageTypes = {
       return cb(null, fileName);
     },
   }),
+
   /*
   s3: multerS3({
     s3: new aws.S3(),
@@ -54,18 +72,27 @@ const storageTypes = {
   }), */
 };
 
-const getStorage = () => {
-  if (process.env.LOCAL_DOS_ARQUIVOS == 'local') {
-    return process.env.STORAGE_TYPE_LOCAL;
-  }
-  return process.env.STORAGE_TYPE_S3;
-};
-
 export default {
+  driver: process.env.STORAGE_DRIVER,
   tmpFolder,
   uploadsFolder: path.resolve(tmpFolder, 'uploads'),
-  // storage: storageTypes['s3'],
-  storage: storageTypes.local,
+  multer: {
+    storage: multer.diskStorage({
+      destination: tmpFolder,
+      filename: (req, file, cb) => {
+        const fileHash = crypto.randomBytes(10).toString('HEX');
+        const fileName = `${fileHash}-${file.originalname}`;
+
+        return cb(null, fileName);
+      },
+    }),
+  },
+  config: {
+    disk: {},
+    aws: {
+      bucket: process.env.BUCKET_NAME,
+    },
+  },
   // storage: storageTypes[process.env.STORAGE_TYPE_LOCAL],
 
   // storage: storageTypes[getStorage()],
@@ -84,4 +111,4 @@ export default {
       cb(new Error('Invalid file type.'));
     }
   },
-};
+} as IUploadConfig;
