@@ -60,6 +60,12 @@ typings/
 # next.js build output
 .next
 dist
+.vscode/
+.idea/
+build/
+temp/
+
+ormconfig.json
 
 tmp/uploads/resized/*
 !tmp/uploads/resized/.gitkeep
