@@ -96,7 +96,7 @@ export default {
   // storage: storageTypes[process.env.STORAGE_TYPE_LOCAL],
 
   // storage: storageTypes[getStorage()],
-
+  /*
   fileFilter: (req, file, cb) => {
     const allowedMimes = [
       'image/jpeg',
@@ -110,5 +110,5 @@ export default {
     } else {
       cb(new Error('Invalid file type.'));
     }
-  },
+  }, */
 } as IUploadConfig;

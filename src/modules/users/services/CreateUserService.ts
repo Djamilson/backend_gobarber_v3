@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 
-import ICacheProvider from '@shared/container/providers/CancheProvider/models/ICacheProvider';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import AppError from '@shared/errors/AppError';
 
 import User from '../infra/typeorm/entities/User';

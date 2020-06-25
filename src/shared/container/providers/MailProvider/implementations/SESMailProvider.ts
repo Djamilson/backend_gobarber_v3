@@ -38,9 +38,6 @@ export default class SESMailProvider implements IMailProvider {
     subject,
     templateData,
   }: ISendMailDTO): Promise<void> {
-    console.log('Estou:');
-    console.log('Estou:', mailConfig);
-    console.log('Estou:', mailConfig.driver);
 
     const { name, email } = mailConfig.defaults.from;
 
@@ -59,8 +56,8 @@ export default class SESMailProvider implements IMailProvider {
         html: await this.mailtemplateProvider.parse(templateData),
       },
       (err, info) => {
-        console.log('===>> error', err);
-        console.log('===>>Info:: ', info);
+        //console.log('===>> error', err);
+        //console.log('===>>Info:: ', info);
       },
     );
   }
