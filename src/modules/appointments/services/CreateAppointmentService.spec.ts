@@ -45,17 +45,18 @@ describe('CreateAppointment', () => {
   it('should not be able to create to appointments on the same time', async () => {
     const appointmentDate = new Date(2020, 4, 10, 11);
 
+    // erro aqui
     await createAppointment.execute({
       date: appointmentDate,
-      user_id: 'user_id',
       provider_id: 'provider_id',
+      user_id: 'user_id',
     });
 
     await expect(
       createAppointment.execute({
         date: appointmentDate,
-        user_id: 'user_id',
         provider_id: 'provider_id',
+        user_id: 'user_id',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
