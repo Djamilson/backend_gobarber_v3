@@ -13,9 +13,13 @@ import uploadConfig from '@config/upload';
 
 import AppError from '@shared/errors/AppError';
 
+import rateLimiter from './middlewares/rateLimiter';
 import routes from './routes';
 
 const app = express();
+
+// analisa as conexões por IP
+app.use(rateLimiter);
 
 app.use(cors());
 
@@ -34,7 +38,7 @@ app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
       message: err.message,
     });
   }
-  console.log(err);
+  // console.log(err);
 
   return res.status(500).json({
     status: 'error',

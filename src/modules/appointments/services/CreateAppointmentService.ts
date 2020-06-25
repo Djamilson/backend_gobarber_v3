@@ -3,7 +3,7 @@ import { injectable, inject } from 'tsyringe';
 
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 
-import ICacheProvider from '@shared/container/providers/CancheProvider/models/ICacheProvider';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import AppError from '@shared/errors/AppError';
 
 import Appointment from '../infra/typeorm/entities/Appointment';
