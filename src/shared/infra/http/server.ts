@@ -19,7 +19,7 @@ import routes from './routes';
 const app = express();
 
 // analisa as conexões por IP
-app.use(rateLimiter);
+// app.use(rateLimiter);
 
 app.use(cors());
 
