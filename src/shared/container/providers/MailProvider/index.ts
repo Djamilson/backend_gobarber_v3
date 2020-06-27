@@ -1,3 +1,5 @@
+// import '@shared/container/providers/MailTemplateProvider';
+
 import { container } from 'tsyringe';
 
 import mailConfig from '@config/mail';

@@ -22,7 +22,7 @@ export default class SESMailProvider implements IMailProvider {
 
   constructor(
     @inject('MailTemplateProvider')
-    private mailtemplateProvider: IMailTemplateProvider,
+    private mailTemplateProvider: IMailTemplateProvider,
   ) {
     this.client = nodemailer.createTransport({
       SES: new aws.SES({
@@ -38,7 +38,6 @@ export default class SESMailProvider implements IMailProvider {
     subject,
     templateData,
   }: ISendMailDTO): Promise<void> {
-
     const { name, email } = mailConfig.defaults.from;
 
     // send some mail
@@ -53,11 +52,11 @@ export default class SESMailProvider implements IMailProvider {
           address: to.email,
         },
         subject,
-        html: await this.mailtemplateProvider.parse(templateData),
+        html: await this.mailTemplateProvider.parse(templateData),
       },
       (err, info) => {
-        //console.log('===>> error', err);
-        //console.log('===>>Info:: ', info);
+        console.log('===>> error', err);
+        console.log('===>>Info:: ', info);
       },
     );
   }

@@ -12,7 +12,7 @@ export default class EtherealMailProvider implements IMailProvider {
 
   constructor(
     @inject('MailTemplateProvider')
-    private mailtemplateProvider: IMailTemplateProvider,
+    private mailTemplateProvider: IMailTemplateProvider,
   ) {
     nodemailer.createTestAccount().then(account => {
       const transporter = nodemailer.createTransport({
@@ -45,7 +45,7 @@ export default class EtherealMailProvider implements IMailProvider {
         address: to.email,
       },
       subject,
-      html: await this.mailtemplateProvider.parse(templateData),
+      html: await this.mailTemplateProvider.parse(templateData),
     });
 
     // console.log('Message send: %s', message.messageId);
