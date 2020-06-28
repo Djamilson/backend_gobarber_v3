@@ -19,6 +19,7 @@ export default class ProviderAppointmentsController {
       month: Number(month),
       year: Number(year),
     });
+
     return res.json(classToClass(appointments));
   }
 }

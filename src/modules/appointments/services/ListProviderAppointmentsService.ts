@@ -39,7 +39,6 @@ class ListProviderAppointmentsService {
       appointments = await this.appointmentsRepository.findAllInDayFromProvider(
         { provider_id, day, month, year },
       );
-
       await this.cacheProvider.save(cachekey, classToClass(appointments));
     }
     return appointments;
