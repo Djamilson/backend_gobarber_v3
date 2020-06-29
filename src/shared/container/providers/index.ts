@@ -2,8 +2,8 @@ import './StorageProvider';
 
 import './MailTemplateProvider';
 
-// erro aqui
-// import './MailProvider';
-// ao inseria a depencia
+// erro aqui, já coloque em vários lugares, e continua o mesmo erro
+import './MailProvider';
+// ao inseria a dependência
 
 import './CacheProvider';
