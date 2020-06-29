@@ -67,12 +67,12 @@ temp/
 
 ormconfig.json
 
-tmp/uploads/resized/*
-!tmp/uploads/resized/.gitkeep
-
-tmp/*
-!tmp/.gitkeep
-
 tmp/uploads/*
-
 !tmp/uploads/.gitkeep
+
+#tmp/*
+#!tmp/.gitkeep
+
+#tmp/uploads/*
+
+#!tmp/uploads/.gitkeep
