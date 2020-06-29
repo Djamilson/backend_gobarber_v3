@@ -3,7 +3,7 @@ import './StorageProvider';
 import './MailTemplateProvider';
 
 // erro aqui
-import './MailProvider';
+// import './MailProvider';
 // ao inseria a depencia
 
 import './CacheProvider';
