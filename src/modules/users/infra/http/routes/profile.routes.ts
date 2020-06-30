@@ -10,6 +10,7 @@ const profileController = new ProfileController();
 profileRouter.use(ensureAuthenticated);
 
 profileRouter.get('/', profileController.show);
+
 profileRouter.put(
   '/',
   celebrate({
@@ -18,7 +19,7 @@ profileRouter.put(
       email: Joi.string().email().required(),
       old_password: Joi.string(),
       password: Joi.string(),
-      password_confirmation: Joi.string().valid(Joi.ref('old_password')),
+      password_confirmation: Joi.string().valid(Joi.ref('password')),
     },
   }),
   profileController.update,
